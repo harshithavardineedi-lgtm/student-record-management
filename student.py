@@ -17,6 +17,14 @@ def save_records(records):
     with open(DATA_FILE, "w") as f:
         json.dump(records, f, indent=4)
 
+# Validate age
+def get_valid_age():
+    while True:
+        age = input("Enter Age: ")
+        if age.isdigit() and int(age) > 0:
+            return age
+        print("Invalid age! Please enter a positive number.")
+
 # Add a new student
 def add_student(records):
     roll_no = input("Enter Roll Number: ")
@@ -26,14 +34,7 @@ def add_student(records):
         return
 
     name = input("Enter Name: ")
-
-    # Validate age
-    while True:
-        age = input("Enter Age: ")
-        if age.isdigit() and int(age) > 0:
-            break
-        print("Invalid age! Please enter a positive number.")
-
+    age = get_valid_age()
     course = input("Enter Course: ")
 
     records[roll_no] = {
@@ -82,7 +83,6 @@ def update_student(records):
             f"Name ({records[roll_no]['Name']}): "
         ) or records[roll_no]['Name']
 
-        # Validate age during update
         while True:
             age = input(
                 f"Age ({records[roll_no]['Age']}): "
